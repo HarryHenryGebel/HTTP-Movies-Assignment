@@ -1,3 +1,30 @@
 .DS_Store
 /node_modules
 .vscode
+# Begin Harry Henry Gebel personal section
+# Compiled
+*.elc
+
+# Packaging
+.cask
+
+# Backup files
+*~
+
+# Undo-tree save-files
+*.~undo-tree
+
+# Autosave
+\#*\#
+
+# impatient-mode sockets
+.\#*
+
+# scratch directory for experimental work
+scratch
+
+# Indium configuration
+.indium.json
+
+# seems related to Lambda School 'npm start'
+nil/
