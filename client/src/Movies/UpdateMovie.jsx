@@ -43,30 +43,46 @@ export default function UpdateMovie(props) {
 
   return (
     <div autoComplete="off" role="form">
+      <label htmlFor="title">Title</label>
+      <br />
       <input
+        width="100%"
         value={values.title}
         id="title"
         onChange={handleChange}
         type="text"
       />
+      <br />
+      <label htmlFor="director">Director</label>
+      <br />
       <input
+        width="100%"
         value={values.director}
         id="director"
         onChange={handleChange}
         type="text"
       />
+      <br />
+      <label htmlFor="metascore">Metascore</label>
+      <br />
       <input
         value={values.metascore}
+        width="100%"
         id="metascore"
         onChange={handleChange}
         type="text"
       />
+      <br />
+      <label htmlFor="stars">Stars</label>
+      <br />
       <input
+        width="100%"
         value={values.stars}
         id="stars"
         onChange={handleChange}
         type="text"
       />
+      <br />
       <button onClick={submit}>Submit</button>
     </div>
   );
