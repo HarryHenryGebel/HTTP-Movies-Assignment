@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
 import requester from "easier-requests";
 
 export default function Movie({ addToSavedList }) {
   const [movie, setMovie] = useState(null),
-    { id } = useParams(),
-    history = useHistory();
+    { id } = useParams();
 
   async function fetchMovie(id) {
     try {

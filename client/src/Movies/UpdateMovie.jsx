@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
-import axios from "axios";
 import requester from "easier-requests";
 
 const initialValues = {
@@ -29,7 +28,9 @@ export default function UpdateMovie(props) {
       throw error;
     }
   }
-  useEffect(() => fetchMovie(id), []);
+  useEffect(() => {
+    fetchMovie(id);
+  }, [id]);
 
   function handleChange(event) {
     const { id, value } = event.target;
@@ -39,7 +40,25 @@ export default function UpdateMovie(props) {
     });
   }
 
-  function submit() {}
+  async function submit() {
+    try {
+      const stars = values.stars.split(", "),
+        requestId = requester.createUniqueID(),
+        newValues = { ...values, stars: stars };
+      await requester.put(
+        `http://localhost:5000/api/movies/${id}`,
+        requestId,
+        newValues
+      );
+      console.log(requester.response(requestId));
+    } catch (error) {
+      console.log(error);
+      throw error;
+    } finally {
+      setValues(initialValues);
+      history.push("/");
+    }
+  }
 
   return (
     <div autoComplete="off" role="form">
