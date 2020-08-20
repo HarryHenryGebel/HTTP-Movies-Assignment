@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import requester from "easier-requests";
 
@@ -13,8 +13,7 @@ const initialValues = {
 
 export default function UpdateMovie(props) {
   const [values, setValues] = useState(initialValues),
-    { id } = useParams(),
-    history = useHistory();
+    { id } = useParams();
 
   async function fetchMovie(id) {
     try {
@@ -50,13 +49,11 @@ export default function UpdateMovie(props) {
         requestId,
         newValues
       );
-      console.log(requester.response(requestId));
     } catch (error) {
       console.log(error);
       throw error;
     } finally {
-      setValues(initialValues);
-      history.push("/");
+      window.open("/");
     }
   }
 
