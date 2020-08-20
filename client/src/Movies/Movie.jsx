@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import MovieCard from "./MovieCard";
+import requester from "easier-requests";
 
 export default function Movie({ addToSavedList }) {
   const [movie, setMovie] = useState(null);
   const params = useParams();
 
-  const fetchMovie = (id) => {
-    axios
-      .get(`http://localhost:5000/api/movies/${id}`)
-      .then((res) => setMovie(res.data))
-      .catch((err) => console.log(err.response));
-  };
+  async function fetchMovie(id) {
+    try {
+      const requestId = requester.createUniqueID();
+      await requester.get(`http://localhost:5000/api/movies/${id}`, requestId);
+      setMovie(requester.response(requestId).data);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 
-  const saveMovie = () => {
+  function saveMovie() {
     addToSavedList(movie);
-  };
+  }
 
   useEffect(() => {
     fetchMovie(params.id);
@@ -30,7 +34,7 @@ export default function Movie({ addToSavedList }) {
     <div className="save-wrapper">
       <MovieCard movie={movie} />
 
-      <div className="save-button" onClick={saveMovie}>
+      <div className="save-button" onClick={saveMovie} role="button">
         Save
       </div>
     </div>
