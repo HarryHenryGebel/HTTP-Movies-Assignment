@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import MovieCard from "./MovieCard";
 
-function Movie({ addToSavedList }) {
+export default function Movie({ addToSavedList }) {
   const [movie, setMovie] = useState(null);
   const params = useParams();
 
@@ -36,5 +36,3 @@ function Movie({ addToSavedList }) {
     </div>
   );
 }
-
-export default Movie;
