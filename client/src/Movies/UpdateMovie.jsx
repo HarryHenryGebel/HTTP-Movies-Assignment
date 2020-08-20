@@ -127,7 +127,7 @@ export default function UpdateMovie(props) {
         type="text"
       />
       <br />
-      <button onClick={submit}>{id === "ADD" ? "Add" : "Submit"}</button>
+      <button onClick={submit}>{id === "ADD" ? "Add" : "Update"}</button>
     </div>
   );
 }
