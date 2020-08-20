@@ -4,12 +4,17 @@ import MovieCard from "./MovieCard";
 
 export default function MovieList({ movies }) {
   return (
-    <div className="movie-list">
-      {movies.map((movie) => (
-        <Link key={movie.id} to={`/movies/${movie.id}`}>
-          <MovieCard movie={movie} />
-        </Link>
-      ))}
-    </div>
+    <>
+      <button>
+        <Link to={"/update-movie/ADD"}>Add a movie</Link>
+      </button>
+      <div className="movie-list">
+        {movies.map((movie) => (
+          <Link key={movie.id} to={`/movies/${movie.id}`}>
+            <MovieCard movie={movie} />
+          </Link>
+        ))}
+      </div>
+    </>
   );
 }
