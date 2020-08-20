@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import MovieCard from "./MovieCard";
 import requester from "easier-requests";
 
@@ -22,6 +22,10 @@ export default function Movie({ addToSavedList }) {
     addToSavedList(movie);
   }
 
+  function updateMovie() {
+    history.push(`/update-movie/${id}`);
+  }
+
   useEffect(() => {
     fetchMovie(params.id);
   }, [params.id]);
@@ -35,6 +39,9 @@ export default function Movie({ addToSavedList }) {
       <MovieCard movie={movie} />
 
       <div className="save-button" onClick={saveMovie} role="button">
+        Save
+      </div>
+      <div className="update-movie-button" onClick={updateMovie} role="button">
         Save
       </div>
     </div>
