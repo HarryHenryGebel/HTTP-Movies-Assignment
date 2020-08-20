@@ -57,7 +57,7 @@ export default function UpdateMovie(props) {
       throw error;
     } finally {
       setValues(initialValues);
-      window.open("/");
+      window.open("/", "_self");
     }
   }
 
@@ -76,7 +76,7 @@ export default function UpdateMovie(props) {
       throw error;
     } finally {
       setValues(initialValues);
-      window.open("/");
+      window.open("/", "_self");
     }
   }
 

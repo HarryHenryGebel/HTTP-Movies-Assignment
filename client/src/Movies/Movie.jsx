@@ -14,7 +14,7 @@ export default function Movie({ addToSavedList }) {
         `http://localhost:5000/api/movies/${id}`,
         requestId
       );
-      window.open("/");
+      window.open("/", "_self");
     } catch (error) {
       console.log(error);
       throw error;
