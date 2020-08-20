@@ -16,6 +16,9 @@ export default function UpdateMovie(props) {
     { id } = useParams();
 
   async function fetchMovie(id) {
+    // detect if we are updating or adding
+    if (id === "ADD") return;
+
     try {
       const requestId = requester.createUniqueID();
       await requester.get(`http://localhost:5000/api/movies/${id}`, requestId);
@@ -39,7 +42,26 @@ export default function UpdateMovie(props) {
     });
   }
 
-  async function submit() {
+  async function add() {
+    try {
+      const stars = values.stars.split(", "),
+        requestId = requester.createUniqueID(),
+        newValues = { ...values, stars: stars };
+      await requester.post(
+        "http://localhost:5000/api/movies",
+        requestId,
+        newValues
+      );
+    } catch (error) {
+      console.log(error);
+      throw error;
+    } finally {
+      setValues(initialValues);
+      window.open("/");
+    }
+  }
+
+  async function update() {
     try {
       const stars = values.stars.split(", "),
         requestId = requester.createUniqueID(),
@@ -53,8 +75,14 @@ export default function UpdateMovie(props) {
       console.log(error);
       throw error;
     } finally {
+      setValues(initialValues);
       window.open("/");
     }
+  }
+
+  function submit() {
+    if (id === "ADD") add();
+    else update();
   }
 
   return (
@@ -99,7 +127,7 @@ export default function UpdateMovie(props) {
         type="text"
       />
       <br />
-      <button onClick={submit}>Submit</button>
+      <button onClick={submit}>{id === "ADD" ? "Add" : "Submit"}</button>
     </div>
   );
 }
