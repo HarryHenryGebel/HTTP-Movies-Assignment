@@ -7,6 +7,20 @@ export default function Movie({ addToSavedList }) {
   const [movie, setMovie] = useState(null),
     { id } = useParams();
 
+  async function deleteMovie() {
+    try {
+      const requestId = requester.createUniqueID();
+      await requester.delete(
+        `http://localhost:5000/api/movies/${id}`,
+        requestId
+      );
+      window.open("/");
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
   async function fetchMovie(id) {
     try {
       const requestId = requester.createUniqueID();
@@ -40,6 +54,7 @@ export default function Movie({ addToSavedList }) {
       <button>
         <Link to={`/update-movie/${id}`}>Update</Link>
       </button>
+      <button onClick={deleteMovie}>Delete</button>
     </div>
   );
 }
