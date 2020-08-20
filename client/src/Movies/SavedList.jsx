@@ -1,11 +1,11 @@
-import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import React from "react";
+import { NavLink, Link } from "react-router-dom";
 
-function SavedList({ list }) {
+export default function SavedList({ list }) {
   return (
     <div className="saved-list">
       <h3>Saved Movies:</h3>
-      {list.map(movie => {
+      {list.map((movie) => {
         return (
           <NavLink
             to={`/movies/${movie.id}`}
@@ -22,5 +22,3 @@ function SavedList({ list }) {
     </div>
   );
 }
-
-export default SavedList;

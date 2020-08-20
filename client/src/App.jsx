@@ -1,24 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
+import requester from "easier-requests";
+
 import SavedList from "./Movies/SavedList";
 import MovieList from "./Movies/MovieList";
 import Movie from "./Movies/Movie";
-import axios from 'axios';
+import UpdateMovie from "./Movies/UpdateMovie";
 
-const App = () => {
+export default function App() {
   const [savedList, setSavedList] = useState([]);
   const [movieList, setMovieList] = useState([]);
 
-  const getMovieList = () => {
-    axios
-      .get("http://localhost:5000/api/movies")
-      .then(res => setMovieList(res.data))
-      .catch(err => console.log(err.response));
-  };
+  async function getMovieList() {
+    try {
+      const id = requester.createUniqueID();
+      await requester.get("http://localhost:5000/api/movies", id);
+      setMovieList(requester.response(id).data);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 
-  const addToSavedList = movie => {
+  function addToSavedList(movie) {
     setSavedList([...savedList, movie]);
-  };
+  }
 
   useEffect(() => {
     getMovieList();
@@ -35,8 +41,10 @@ const App = () => {
       <Route path="/movies/:id">
         <Movie addToSavedList={addToSavedList} />
       </Route>
+
+      <Route path="/update-movie/:id">
+        <UpdateMovie />
+      </Route>
     </>
   );
-};
-
-export default App;
+}
